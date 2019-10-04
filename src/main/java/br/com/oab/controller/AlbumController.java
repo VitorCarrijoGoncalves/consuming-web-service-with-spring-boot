@@ -12,18 +12,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import br.com.oab.model.Pessoa;
+import br.com.oab.model.Album;
 import br.com.oab.response.Response;
-import br.com.oab.service.PessoaService;
+import br.com.oab.service.AlbumService;
 
 @RestController
-@RequestMapping("/pessoas")
-public class PessoaController {
+@RequestMapping("/albums")
+public class AlbumController {
 	
-	private static final String url = "http://localhost:8080/pessoas";
+	private static final String url = "https://jsonplaceholder.typicode.com/albums";
 
 	@Autowired
-	private PessoaService pessoaService;
+	private AlbumService albumService;
 	
 	@Autowired
 	private RestTemplate restTemplate;
@@ -34,13 +34,13 @@ public class PessoaController {
 //	}
 	
 	@GetMapping(value = "{id}")
-	public @ResponseBody ResponseEntity<Response<Pessoa>> findById(@PathVariable("id") Long id) {
+	public @ResponseBody ResponseEntity<Response<Album>> findById(@PathVariable("id") Long id) {
 		
-		Pessoa pessoa = restTemplate.getForObject(url + "/" + id, Pessoa.class);
+		Album album = restTemplate.getForObject(url + "/" + id, Album.class);
 		
 //		pessoa.setMunicipio("fsdfsfs");
 		
-		Response<Pessoa> response = new Response<Pessoa>();
+		Response<Album> response = new Response<Album>();
 //		Optional<Pessoa> optionalPessoa = pessoaService.findById(id);
 
 //		Pessoa pessoa = null;
@@ -54,15 +54,15 @@ public class PessoaController {
 //			return ResponseEntity.badRequest().body(response);
 //		}
 		
-		response.setData(pessoa);
+		response.setData(album);
 		return ResponseEntity.ok(response);
 	}
 	
 	@GetMapping(value = "{page}/{count}")
-	public ResponseEntity<Response<Page<Pessoa>>> findAll(@PathVariable int page, @PathVariable int count) {
-		Response<Page<Pessoa>> response = new Response<Page<Pessoa>>();
-		Page<Pessoa> pessoas = pessoaService.findAll(page, count);
-		response.setData(pessoas);
+	public ResponseEntity<Response<Page<Album>>> findAll(@PathVariable int page, @PathVariable int count) {
+		Response<Page<Album>> response = new Response<Page<Album>>();
+		Page<Album> albums = albumService.findAll(page, count);
+		response.setData(albums);
 		return ResponseEntity.ok(response);
 	}
 

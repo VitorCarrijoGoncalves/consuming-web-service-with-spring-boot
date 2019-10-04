@@ -1,45 +1,38 @@
 package br.com.oab.model;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity
-@Table(name="LoginUsers")
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@Document
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+	@Id
     private Long id;
 
-    @Column(name = "Password",length = 10)
     private String password;
 
-    @Column(name = "UserID",length = 20)
     private String userId;
 
-    @Column(name = "UserName",length = 100)
     private String userName;
 
-    @Column(name = "CreatedBy")
     private Long createdBy;
 
-    @Column(name = "CreatedOn",length = 200)
     private Date createdOn;
 
-    @Column(name = "UpdatedBy")
     private Long updatedBy;
 
-    @Column(name = "UpdatedOn",length = 200)
     private Date updatedOn;
 
-    @Column(name = "UpdatedByInterface")
     private Long updatedByInterface;
 
-    @Column(name = "UpdatedOnInterface")
     private Date updatedOnInterface;
 
     public Long getId() {
@@ -121,4 +114,18 @@ public class User implements Serializable {
     public void setUpdatedOnInterface(Date updatedOnInterface) {
         this.updatedOnInterface = updatedOnInterface;
     }
+
+	@Override
+	public String toString() {
+		return "User {id=" + id + ", password=" + password + ", userId=" + 
+	userId + ", userName=" + userName
+				+ ", createdBy=" + createdBy + ", createdOn=" + createdOn + ", "
+						+ "updatedBy=" + updatedBy + ", updatedOn="
+				+ updatedOn + ", updatedByInterface=" + 
+						updatedByInterface + ", updatedOnInterface="
+				+ updatedOnInterface + "}";
+	}
+    
+    
+    
 }

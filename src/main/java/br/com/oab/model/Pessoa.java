@@ -1,45 +1,58 @@
 package br.com.oab.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Document
-public class Pessoa {
+public class Pessoa implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonProperty
 	private Long id;
 
+	@JsonProperty
 	private String nome;
 
+	@JsonProperty
 	private String municipio;
 
+	@JsonProperty
 	private String cpfcnpj;
 
+	@JsonProperty
 	private String nomePai;
 
+	@JsonProperty
 	private String nomeMae;
 
+	@JsonProperty
 	private String registroConselhoAtual;
 
+	@JsonProperty
 	private Long createdBy;
 
+	@JsonProperty
 	private Date createdOn;
 
+	@JsonProperty
 	private Long updatedBy;
 
+	@JsonProperty
 	private Date updatedOn;
 
+	@JsonProperty
 	private Long updatedByInterface;
 
+	@JsonProperty
 	private Date updatedOnInterface;
 
 	public Long getId() {

@@ -1,18 +1,16 @@
 package br.com.oab.service.impl;
 
-import br.com.oab.model.Pessoa;
-import br.com.oab.model.User;
-import br.com.oab.repository.PessoaRepository;
-import br.com.oab.repository.UserRepository;
-import br.com.oab.service.PessoaService;
-import br.com.oab.service.UserService;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import br.com.oab.model.User;
+import br.com.oab.repository.UserRepository;
+import br.com.oab.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
