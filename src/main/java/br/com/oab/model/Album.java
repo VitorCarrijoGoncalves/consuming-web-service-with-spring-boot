@@ -1,5 +1,8 @@
 package br.com.oab.model;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class Album {
 	
 	private String userId;

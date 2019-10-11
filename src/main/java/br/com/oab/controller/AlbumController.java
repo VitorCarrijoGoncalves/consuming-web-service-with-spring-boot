@@ -1,8 +1,8 @@
 package br.com.oab.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +21,7 @@ import br.com.oab.service.AlbumService;
 public class AlbumController {
 	
 	private static final String url = "https://jsonplaceholder.typicode.com/albums";
+//	private static final String url = "http://localhost:8080/api/album";
 
 	@Autowired
 	private AlbumService albumService;
@@ -28,31 +29,22 @@ public class AlbumController {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-//	@Bean
-//	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-//		return builder.build();
-//	}
-	
 	@GetMapping(value = "{id}")
 	public @ResponseBody ResponseEntity<Response<Album>> findById(@PathVariable("id") Long id) {
 		
 		Album album = restTemplate.getForObject(url + "/" + id, Album.class);
 		
-//		pessoa.setMunicipio("fsdfsfs");
-		
 		Response<Album> response = new Response<Album>();
-//		Optional<Pessoa> optionalPessoa = pessoaService.findById(id);
+		Optional<Album> optionalAlbum = albumService.findById(id);
 
-//		Pessoa pessoa = null;
-		
-//		if (optionalPessoa.isPresent()) { 
-//			pessoa = optionalPessoa.get();
-//		}
+		if (optionalAlbum.isPresent()) { 
+			album = optionalAlbum.get();
+		}
 
-//		if (pessoa == null) {
-//			response.getErrors().add("Register not found id: " + id);
-//			return ResponseEntity.badRequest().body(response);
-//		}
+		if (album == null) {
+			response.getErrors().add("Register not found id: " + id);
+			return ResponseEntity.badRequest().body(response);
+		}
 		
 		response.setData(album);
 		return ResponseEntity.ok(response);

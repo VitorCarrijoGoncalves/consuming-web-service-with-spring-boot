@@ -7,7 +7,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Document
@@ -16,43 +15,30 @@ public class Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonProperty
 	private Long id;
 
-	@JsonProperty
 	private String nome;
 
-	@JsonProperty
 	private String municipio;
 
-	@JsonProperty
 	private String cpfcnpj;
 
-	@JsonProperty
 	private String nomePai;
 
-	@JsonProperty
 	private String nomeMae;
 
-	@JsonProperty
 	private String registroConselhoAtual;
 
-	@JsonProperty
 	private Long createdBy;
 
-	@JsonProperty
 	private Date createdOn;
 
-	@JsonProperty
 	private Long updatedBy;
 
-	@JsonProperty
 	private Date updatedOn;
 
-	@JsonProperty
 	private Long updatedByInterface;
 
-	@JsonProperty
 	private Date updatedOnInterface;
 
 	public Long getId() {

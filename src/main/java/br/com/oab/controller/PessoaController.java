@@ -1,8 +1,8 @@
 package br.com.oab.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,38 +21,29 @@ import br.com.oab.service.PessoaService;
 public class PessoaController {
 	
 	private static final String url = "http://localhost:8080/pessoas";
-
+	
 	@Autowired
 	private PessoaService pessoaService;
 	
 	@Autowired
 	private RestTemplate restTemplate;
 	
-//	@Bean
-//	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-//		return builder.build();
-//	}
-	
 	@GetMapping(value = "{id}")
 	public @ResponseBody ResponseEntity<Response<Pessoa>> findById(@PathVariable("id") Long id) {
 		
 		Pessoa pessoa = restTemplate.getForObject(url + "/" + id, Pessoa.class);
 		
-//		pessoa.setMunicipio("fsdfsfs");
-		
 		Response<Pessoa> response = new Response<Pessoa>();
-//		Optional<Pessoa> optionalPessoa = pessoaService.findById(id);
+		Optional<Pessoa> optionalPessoa = pessoaService.findById(id);
 
-//		Pessoa pessoa = null;
-		
-//		if (optionalPessoa.isPresent()) { 
-//			pessoa = optionalPessoa.get();
-//		}
+		if (optionalPessoa.isPresent()) { 
+			pessoa = optionalPessoa.get();
+		}
 
-//		if (pessoa == null) {
-//			response.getErrors().add("Register not found id: " + id);
-//			return ResponseEntity.badRequest().body(response);
-//		}
+		if (pessoa == null) {
+			response.getErrors().add("Register not found id: " + id);
+			return ResponseEntity.badRequest().body(response);
+		}
 		
 		response.setData(pessoa);
 		return ResponseEntity.ok(response);
